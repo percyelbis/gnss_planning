@@ -43,7 +43,10 @@ var ign = L.geoJson(erp, {
       });
   },
 }).addTo(map);
-
+// zoom
+L.control.zoom({
+  position:'topright'
+}).addTo(map);
 // search bar
 var searchControl = new L.esri.Controls.Geosearch({position:'topright'}).addTo(map);
 // Crear un formulario para ingresar las coordenadas
