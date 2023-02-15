@@ -56,9 +56,9 @@ var inputLng = document.createElement('input');
 var button = document.createElement('button');
 
 inputLat.type = 'text';
-inputLat.placeholder = 'Ingrese Latitud';
+inputLat.placeholder = 'Latitud';
 inputLng.type = 'text';
-inputLng.placeholder = 'Ingrese Longitud';
+inputLng.placeholder = 'Longitud';
 button.type = 'submit';
 button.textContent = 'Agregar Marcador';
 button.style.backgroundColor = 'blue';
