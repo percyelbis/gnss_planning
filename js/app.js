@@ -43,9 +43,38 @@ var ign = L.geoJson(erp, {
       });
   },
 }).addTo(map);
-
+// zoom
+L.control.zoom({
+  position:'topright'
+}).addTo(map);
 // search bar
 var searchControl = new L.esri.Controls.Geosearch({position:'topright'}).addTo(map);
+// bienvenida
+var notification = L.control
+    .notifications({
+        timeout: 3000,
+        position: 'topright',
+        closable: true,
+        dismissable: true,
+    })
+    .addTo(map);
+//custom options per notification
+notification.success('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos tu ubicación (latitud, longitud, código) por WhatsApp y ayúdanos a mejorar juntos.', {
+  timeout: 12000,
+  closable: false,
+  dismissable: false,
+  icon: 'fa fa-check-circle',
+  className: 'important-alert',
+});
+notification.warning('Solo para Escritorio', 'Muy Pronto para mobile', {
+  timeout: 15000,
+  closable: false,
+  dismissable: false,
+  icon: 'fa fa-check-circle',
+  className: 'important-alert',
+});
+
+var modernNotifications = L.control.notifications({ className: 'modern' }).addTo(map);
 // Crear un formulario para ingresar las coordenadas
 var form = document.createElement('form');
 var inputLat = document.createElement('input');
@@ -53,9 +82,9 @@ var inputLng = document.createElement('input');
 var button = document.createElement('button');
 
 inputLat.type = 'text';
-inputLat.placeholder = 'Ingrese Latitud';
+inputLat.placeholder = 'Latitud';
 inputLng.type = 'text';
-inputLng.placeholder = 'Ingrese Longitud';
+inputLng.placeholder = 'Longitud';
 button.type = 'submit';
 button.textContent = 'Agregar Marcador';
 button.style.backgroundColor = 'blue';
@@ -184,3 +213,13 @@ map.pm.addControls({
 
 
 
+
+
+
+
+
+var bar = L.controlCredits({
+  image: "img/whatsapp.svg",
+  link: "https://wa.me/51946648819?text=Hola%2C+esta+estacion+activa+falta+(latitud, longitud, código)",
+  text: "<strong>Enviame la Estacion para agregar!!!</strong><br/><b></b>",
+}).addTo(map);

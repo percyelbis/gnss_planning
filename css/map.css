@@ -45,7 +45,7 @@ p{
     text-align: center;
     box-sizing: border-box;
     margin: 20px 10px;
-    border-radius: 2em;
+    border-radius: 1.5em;
     background-color:#abdbe3;
     border: 3px inset #154c79;
     text-shadow: 1px 1px 7px #eab676, 1px 1px 7px #eab676, 1px 1px 7px #eab676 ;
@@ -56,7 +56,7 @@ p{
   }
   h2 {
     font-size: 30px;
-    font-size: 2em;
+    font-size: 1.5em;
     font-family: 'Fredoka One', cursive; /*google font*/
     line-height: 1;
     font-weight: 300;
@@ -73,13 +73,13 @@ p{
   input {
       font-size: 30pt;
       height: 50px;
-      width: 100px;
+      width: 70px;
       margin: 10pt;
       border:4px solid #888888;
   }
   .button{
-    width:70px;
-    height:70px;
+    width:50px;
+    height:50px;
     border:1px solid #888888;
     outline:none;
     background-color:#f4f5f6;
@@ -98,3 +98,16 @@ p{
     cursor:pointer;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
   }
+
+  .container{
+    position: absolute;
+    z-index: 2000;
+    bottom: 0px;
+    margin: 0;
+    right: 0px;
+    font-family: Tahoma;
+    background: linear-gradient( -55deg, #9ea1ae, #8db6e8);
+    border-radius: 7%;
+    box-shadow: 0 1px 3px rgba(6, 106, 238, 0.579);
+    padding: 0px;
+}
