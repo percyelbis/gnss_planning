@@ -43,10 +43,12 @@ var ign = L.geoJson(erp, {
       });
   },
 }).addTo(map);
+/*
 // zoom
 L.control.zoom({
   position:'topright'
 }).addTo(map);
+*/
 // search bar
 var searchControl = new L.esri.Controls.Geosearch({position:'topright'}).addTo(map);
 // bienvenida
@@ -95,16 +97,19 @@ button.style.border = 'none';
 form.appendChild(inputLat);
 form.appendChild(inputLng);
 form.appendChild(button);
-form.style.zIndex = 1000;
 
-form.style.position = 'relative';
+form.style.zIndex = 1000;
+form.style.position = 'absolute';
 form.style.top = '20px';
 form.style.left = '20px';
 
+// Agregar el formulario a un elemento div
+var div = document.createElement('div');
+div.setAttribute('id', 'formulario');
+div.appendChild(form);
 
-
-
-map.getContainer().appendChild(form);
+// Agregar el elemento div al contenedor del mapa
+map.getContainer().appendChild(div);
 
 
 /*
