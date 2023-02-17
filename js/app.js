@@ -18,10 +18,9 @@ var ign = L.geoJson(erp, {
 },
   pointToLayer: function (feature, latlng) {
     return new L.CircleMarker(latlng, {
-        radius: 12,
+        radius: 7,
         fillOpacity: 0.7,
         color: '#ff7f00', 
-        weight: 1
       });
   },
 }).addTo(map);
