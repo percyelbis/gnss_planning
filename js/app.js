@@ -55,12 +55,14 @@ var inputLat = document.createElement('input');
 var inputLng = document.createElement('input');
 var button = document.createElement('button');
 
-inputLat.type = 'text';
+inputLat.type = 'number';
 inputLat.placeholder = 'Latitud';
 inputLat.pattern = '[0-9]*\.?[0-9]+';
-inputLng.type = 'text';
+inputLat.inputmode = 'decimal';
+inputLng.type = 'number';
 inputLng.placeholder = 'Longitud';
 inputLng.pattern = '[0-9]*\.?[0-9]+';
+inputLng.inputmode = 'decimal';
 button.type = 'submit';
 button.textContent = 'Agregar Marcador';
 button.style.backgroundColor = 'blue';
@@ -103,13 +105,11 @@ divFormContainer.style.zIndex = 1000;
 map.getContainer().appendChild(divBackground);
 divBackground.appendChild(divFormContainer);
 divFormContainer.appendChild(form);
-divBackground.addEventListener('mousemove', function(event) {
-  event.stopPropagation();
-});
 
 divBackground.addEventListener('touchmove', function(event) {
   event.stopPropagation();
 });
+
 
 // bienvenida
 var notification = L.control
