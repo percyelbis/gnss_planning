@@ -55,14 +55,12 @@ var inputLat = document.createElement('input');
 var inputLng = document.createElement('input');
 var button = document.createElement('button');
 
-inputLat.type = 'number';
+inputLat.type = 'text';
 inputLat.placeholder = 'Latitud';
 inputLat.pattern = '[0-9]*\.?[0-9]+';
-inputLat.inputmode = 'decimal';
-inputLng.type = 'number';
+inputLng.type = 'text';
 inputLng.placeholder = 'Longitud';
 inputLng.pattern = '[0-9]*\.?[0-9]+';
-inputLng.inputmode = 'decimal';
 button.type = 'submit';
 button.textContent = 'Agregar Marcador';
 button.style.backgroundColor = 'blue';
@@ -100,16 +98,20 @@ divFormContainer.style.top = '1';
 divFormContainer.style.left = '1';
 divFormContainer.style.transform = 'translate(3px, 3px)';
 divFormContainer.style.zIndex = 1000;
+divFormContainer.style.marginBottom = '60px'; // Solución para dispositivos móviles
 
 // Agregar el div de fondo y el div contenedor del formulario al contenedor del mapa
 map.getContainer().appendChild(divBackground);
 divBackground.appendChild(divFormContainer);
 divFormContainer.appendChild(form);
+divBackground.addEventListener('mousemove', function(event) {
+  event.stopPropagation();
+});
+
 
 divBackground.addEventListener('touchmove', function(event) {
   event.stopPropagation();
 });
-
 
 // bienvenida
 var notification = L.control
