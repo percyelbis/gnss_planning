@@ -125,7 +125,7 @@ var notification = L.control
     })
     .addTo(map);
 //custom options per notification
-notification.success('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos tu ubicación (latitud, longitud, código) por WhatsApp y ayúdanos a mejorar juntos.', {
+notification.success('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos la ubicación faltante (latitud, longitud, código) por WhatsApp.', {
   timeout: 12000,
   closable: false,
   dismissable: false,
