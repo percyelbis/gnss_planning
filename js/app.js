@@ -119,7 +119,7 @@ var notification = L.control
     })
     .addTo(map);
 //custom options per notification
-notification.success('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos la ubicación faltante (latitud, longitud, código) por WhatsApp.', {
+notification.warning('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos la ubicación faltante (latitud, longitud, código) por WhatsApp.', {
   timeout: 12000,
   closable: false,
   dismissable: false,
