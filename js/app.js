@@ -131,13 +131,7 @@ notification.success('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestr
   icon: 'fa fa-check-circle',
   className: 'important-alert',
 });
-notification.warning('Solo para Escritorio', 'Muy Pronto para mobile', {
-  timeout: 15000,
-  closable: false,
-  dismissable: false,
-  icon: 'fa fa-check-circle',
-  className: 'important-alert',
-});
+
 
 var modernNotifications = L.control.notifications({ className: 'modern' }).addTo(map);
 
