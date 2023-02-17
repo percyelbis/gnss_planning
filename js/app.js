@@ -58,9 +58,11 @@ var button = document.createElement('button');
 inputLat.type = 'text';
 inputLat.placeholder = 'Latitud';
 inputLat.pattern = '[0-9]*\.?[0-9]+';
+inputLat.inputmode = 'numeric'; // Agrega inputmode para el teclado numérico
 inputLng.type = 'text';
 inputLng.placeholder = 'Longitud';
 inputLng.pattern = '[0-9]*\.?[0-9]+';
+inputLng.inputmode = 'numeric'; // Agrega inputmode para el teclado numérico
 button.type = 'submit';
 button.textContent = 'Agregar Marcador';
 button.style.backgroundColor = 'blue';
@@ -119,7 +121,7 @@ var notification = L.control
     })
     .addTo(map);
 //custom options per notification
-notification.warning('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos la ubicación faltante (latitud, longitud, código) por WhatsApp.', {
+notification.success('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos la ubicación faltante (latitud, longitud, código) por WhatsApp.', {
   timeout: 12000,
   closable: false,
   dismissable: false,
