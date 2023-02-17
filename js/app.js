@@ -172,6 +172,8 @@ form.addEventListener('submit', function(e) {
 
   // Crear una línea a partir de las coordenadas
   var line = L.polyline(lineCoords, {color: 'red'}).addTo(markers);
+  // centrar
+  map.fitBounds(line.getBounds());
 
   // Agregar evento al marcador para mostrar la información de distancia y altura en un popup
   marker.addEventListener('click', function() {
