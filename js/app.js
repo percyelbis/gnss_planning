@@ -4,26 +4,8 @@ var map = L.map('map', { zoomControl: false }).setView([-10.166, -74.940], 6);
 var satelite = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',{
   attribution: 'Google Satellite'
 }).addTo(map);
-///
 
-
-
-// agregar erp
-// icon
-var marker_erp = new L.Icon({
-  iconSize: [21, 21],
-  iconAnchor: [9, 21],
-  popupAnchor:  [1, -24],
-  iconUrl: 'img/point.png'
-});
-
-// Show
-var ign = L.geoJson(erp, {
-  pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {icon: marker_erp});
-  }
-}).addTo(map)
-
+//erp
 
 var ign = L.geoJson(erp, {
   className: 'CODIGO',
