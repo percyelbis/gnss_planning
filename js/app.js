@@ -114,6 +114,7 @@ divBackground.addEventListener('click', function(event) {
 });
 
 
+
 // bienvenida
 var notification = L.control
     .notifications({
