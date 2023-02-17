@@ -43,14 +43,74 @@ var ign = L.geoJson(erp, {
       });
   },
 }).addTo(map);
-/*
 // zoom
 L.control.zoom({
   position:'topright'
 }).addTo(map);
-*/
 // search bar
 var searchControl = new L.esri.Controls.Geosearch({position:'topright'}).addTo(map);
+// Crear un formulario para ingresar las coordenadas
+var form = document.createElement('form');
+var inputLat = document.createElement('input');
+var inputLng = document.createElement('input');
+var button = document.createElement('button');
+
+inputLat.type = 'text';
+inputLat.placeholder = 'Latitud';
+inputLat.pattern = '[0-9]*\.?[0-9]+';
+inputLng.type = 'text';
+inputLng.placeholder = 'Longitud';
+inputLng.pattern = '[0-9]*\.?[0-9]+';
+button.type = 'submit';
+button.textContent = 'Agregar Marcador';
+button.style.backgroundColor = 'blue';
+button.style.borderRadius = '5px';
+button.style.color = 'white';
+button.style.padding = '10px 20px';
+button.style.border = 'none';
+form.appendChild(inputLat);
+form.appendChild(inputLng);
+form.appendChild(button);
+
+form.style.zIndex = 1000;
+form.style.position = 'absolute';
+form.style.top = '10px';
+form.style.left = '10px';
+
+// Crear un div para el fondo del formulario
+var divBackground = document.createElement('div');
+divBackground.style.position = 'absolute';
+divBackground.style.width = '0';
+divBackground.style.height = '0';
+divBackground.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+divBackground.style.zIndex = 1000; // un valor menor que el formulario
+
+// Crear un div para contener el formulario
+var divFormContainer = document.createElement('div');
+divFormContainer.style.width = '300px';
+divFormContainer.style.height = '70px';
+divFormContainer.style.backgroundColor = '#fff';
+divFormContainer.style.border = '1px solid #ccc';
+divFormContainer.style.borderRadius = '5px';
+divFormContainer.style.padding = '3px';
+divFormContainer.style.position = 'absolute';
+divFormContainer.style.top = '1';
+divFormContainer.style.left = '1';
+divFormContainer.style.transform = 'translate(3px, 3px)';
+divFormContainer.style.zIndex = 1000;
+
+// Agregar el div de fondo y el div contenedor del formulario al contenedor del mapa
+map.getContainer().appendChild(divBackground);
+divBackground.appendChild(divFormContainer);
+divFormContainer.appendChild(form);
+divBackground.addEventListener('mousemove', function(event) {
+  event.stopPropagation();
+});
+
+divBackground.addEventListener('touchmove', function(event) {
+  event.stopPropagation();
+});
+
 // bienvenida
 var notification = L.control
     .notifications({
@@ -77,67 +137,6 @@ notification.warning('Solo para Escritorio', 'Muy Pronto para mobile', {
 });
 
 var modernNotifications = L.control.notifications({ className: 'modern' }).addTo(map);
-// Crear un formulario para ingresar las coordenadas
-var form = document.createElement('form');
-var inputLat = document.createElement('input');
-var inputLng = document.createElement('input');
-var button = document.createElement('button');
-
-inputLat.type = 'text';
-inputLat.placeholder = 'Latitud';
-inputLat.pattern = '[0-9]*\.?[0-9]+';
-inputLng.type = 'text';
-inputLng.placeholder = 'Longitud';
-inputLng.pattern = '[0-9]*\.?[0-9]+';
-button.type = 'submit';
-button.textContent = 'Agregar Marcador';
-button.style.backgroundColor = 'blue';
-button.style.borderRadius = '5px';
-button.style.color = 'white';
-button.style.padding = '10px 20px';
-button.style.border = 'none';
-form.appendChild(inputLat);
-form.appendChild(inputLng);
-form.appendChild(button);
-
-form.style.zIndex = 1000;
-form.style.position = 'absolute';
-form.style.top = '20px';
-form.style.left = '20px';
-
-// Crear un div para el fondo del formulario
-var divBackground = document.createElement('div');
-divBackground.style.position = 'absolute';
-divBackground.style.width = '0';
-divBackground.style.height = '0';
-divBackground.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-divBackground.style.zIndex = 1000; // un valor menor que el formulario
-
-// Crear un div para contener el formulario
-var divFormContainer = document.createElement('div');
-divFormContainer.style.width = '200px';
-divFormContainer.style.height = '150px';
-divFormContainer.style.backgroundColor = '#fff';
-divFormContainer.style.border = '1px solid #ccc';
-divFormContainer.style.borderRadius = '5px';
-divFormContainer.style.padding = '20px';
-divFormContainer.style.position = 'absolute';
-divFormContainer.style.top = '10';
-divFormContainer.style.left = '10';
-divFormContainer.style.transform = 'translate(20px, 20px)';
-divFormContainer.style.zIndex = 1000;
-
-// Agregar el div de fondo y el div contenedor del formulario al contenedor del mapa
-map.getContainer().appendChild(divBackground);
-divBackground.appendChild(divFormContainer);
-divFormContainer.appendChild(form);
-
-
-divBackground.addEventListener('mousemove', function(event) {
-  event.stopPropagation();
-});
-
-
 
 /*
 var lat  = -11.0785
