@@ -105,15 +105,10 @@ divFormContainer.style.zIndex = 1000;
 map.getContainer().appendChild(divBackground);
 divBackground.appendChild(divFormContainer);
 divFormContainer.appendChild(form);
-divBackground.addEventListener('touchend', function(event) {
-  event.stopPropagation();
-  divBackground.style.width = '100%';
-  divBackground.style.height = '100%';
-  inputLat.focus();
-});
-divBackground.addEventListener('click', function(event) {
+divBackground.addEventListener('mousemove', function(event) {
   event.stopPropagation();
 });
+
 
 // bienvenida
 var notification = L.control
