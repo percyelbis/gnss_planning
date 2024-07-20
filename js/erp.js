@@ -3,6 +3,7 @@ var erp = {
     "name": "erp",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
     "features": [
+    
     { "type": "Feature", "properties": { "OBJECTID": 0.0, "CODIGO": "AM01", "LONGITUD__": -77.872792, "LATITUD_GD": -6.235154 }, "geometry": { "type": "Point", "coordinates": [ -77.87279246099996, -6.235154082999941 ] } },
     { "type": "Feature", "properties": { "OBJECTID": 1.0, "CODIGO": "AM03", "LONGITUD__": -78.531165, "LATITUD_GD": -5.638543 }, "geometry": { "type": "Point", "coordinates": [ -78.531165021999982, -5.638543274999961 ] } },
     { "type": "Feature", "properties": { "OBJECTID": 2.0, "CODIGO": "AM04", "LONGITUD__": -77.863676, "LATITUD_GD": -4.598147 }, "geometry": { "type": "Point", "coordinates": [ -77.863675602999933, -4.598147082999958 ] } },
@@ -96,7 +97,11 @@ var erp = {
     { "type": "Feature", "properties": { "OBJECTID": 90.0, "CODIGO": "TOPL00BRA", "LONGITUD__": null, "LATITUD_GD": null }, "geometry": { "type": "Point", "coordinates": [ -48.331, -10.171 ] } },
     { "type": "Feature", "properties": { "OBJECTID": 91.0, "CODIGO": "UFPR00BRA", "LONGITUD__": null, "LATITUD_GD": null }, "geometry": { "type": "Point", "coordinates": [ -49.231, -25.448 ] } },
     { "type": "Feature", "properties": { "OBJECTID": 92.0, "CODIGO": "UNSA00ARG", "LONGITUD__": null, "LATITUD_GD": null }, "geometry": { "type": "Point", "coordinates": [ -65.408, -24.727 ] } },
-    { "type": "Feature", "properties": { "OBJECTID": 93.0, "CODIGO": "USCL00CHL", "LONGITUD__": null, "LATITUD_GD": null }, "geometry": { "type": "Point", "coordinates": [ -70.681, -33.45 ] } }
+    { "type": "Feature", "properties": { "OBJECTID": 93.0, "CODIGO": "USCL00CHL", "LONGITUD__": null, "LATITUD_GD": null }, "geometry": { "type": "Point", "coordinates": [ -70.681, -33.45 ] } },
+    { "type": "Feature", "properties": { "OBJECTID": 94.0, "CODIGO": "1011509", "LONGITUD__": -71.94334635, "LATITUD_GD": -13.54068562 }, "geometry": { "type": "Point", "coordinates": [ -71.94334635, -13.54068562 ] } },
+    { "type": "Feature", "properties": { "OBJECTID": 95.0, "CODIGO": "1011511", "LONGITUD__": -71.92451218, "LATITUD_GD": -13.54343794 }, "geometry": { "type": "Point", "coordinates": [ -71.92451218, -13.54343794 ] } },
+    { "type": "Feature", "properties": { "OBJECTID": 96.0, "CODIGO": "1011512", "LONGITUD__": -71.92241594, "LATITUD_GD": -13.54380472 }, "geometry": { "type": "Point", "coordinates": [ -71.92241594, -13.54380472 ] } },
+    { "type": "Feature", "properties": { "OBJECTID": 97.0, "CODIGO": "1011513", "LONGITUD__": -71.91548925, "LATITUD_GD": -13.54483986 }, "geometry": { "type": "Point", "coordinates": [ -71.91548925, -13.54483986 ] } }                                 
     ]
     }
     
