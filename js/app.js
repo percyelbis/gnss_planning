@@ -1,49 +1,58 @@
 // Crear un mapa con Leaflet
 var map = L.map('map', { zoomControl: false }).setView([-10.166, -74.940], 6);
+
 // Agregar una capa de teselas del mapa base
 var satelite = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',{
   attribution: 'Google Satellite'
 }).addTo(map);
 
-//erp
-
+// ERP
 var ign = L.geoJson(erp, {
   className: 'CODIGO',
-  onEachFeature: function (feature,layer) {
-      layer.bindTooltip(feature.properties.CODIGO ,{
-       permanent: true,
-       direction: 'top',
-       className: 'ign',
-      })
-},
+  onEachFeature: function (feature, layer) {
+    layer.bindTooltip(feature.properties.CODIGO, {
+      permanent: true,
+      direction: 'top',
+      className: 'ign',
+    })
+  },
   pointToLayer: function (feature, latlng) {
     return new L.CircleMarker(latlng, {
-        radius: 7,
-        fillOpacity: 0.7,
-        color: '#ff7f00', 
-      });
+      radius: 7,
+      fillOpacity: 0.7,
+      color: '#ff7f00', 
+    });
   },
 }).addTo(map);
-// zoom
+
+// Zoom
 L.control.zoom({
   position:'topright'
 }).addTo(map);
-// search bar
+
+// Search bar
 var searchControl = new L.esri.Controls.Geosearch({position:'topright'}).addTo(map);
+
 // Crear un formulario para ingresar las coordenadas
 var form = document.createElement('form');
 var inputLat = document.createElement('input');
 var inputLng = document.createElement('input');
 var button = document.createElement('button');
 
-inputLat.type = 'text';
+inputLat.type = 'number';
 inputLat.placeholder = 'Latitud';
-inputLat.pattern = '[0-9]*\.?[0-9]+';
-inputLat.inputmode = 'numeric'; // Agrega inputmode para el teclado numérico
-inputLng.type = 'text';
+inputLat.step = 'any';
+inputLat.min = -90;
+inputLat.max = 90;
+inputLat.required = true;
+
+inputLng.type = 'number';
 inputLng.placeholder = 'Longitud';
-inputLng.pattern = '[0-9]*\.?[0-9]+';
-inputLng.inputmode = 'numeric'; // Agrega inputmode para el teclado numérico
+inputLng.step = 'any';
+inputLng.min = -180;
+inputLng.max = 180;
+inputLng.required = true;
+
 button.type = 'submit';
 button.textContent = 'Agregar Marcador';
 button.style.backgroundColor = 'blue';
@@ -51,6 +60,7 @@ button.style.borderRadius = '5px';
 button.style.color = 'white';
 button.style.padding = '10px 20px';
 button.style.border = 'none';
+
 form.appendChild(inputLat);
 form.appendChild(inputLng);
 form.appendChild(button);
@@ -63,84 +73,56 @@ form.style.left = '10px';
 // Crear un div para el fondo del formulario
 var divBackground = document.createElement('div');
 divBackground.style.position = 'absolute';
-divBackground.style.width = '0';
-divBackground.style.height = '0';
-divBackground.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-divBackground.style.zIndex = 1000; // un valor menor que el formulario
+divBackground.style.width = '300px';
+divBackground.style.height = '70px';
+divBackground.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+divBackground.style.zIndex = 999;
+divBackground.style.borderRadius = '5px';
 
-// Crear un div para contener el formulario
-var divFormContainer = document.createElement('div');
-divFormContainer.style.width = '300px';
-divFormContainer.style.height = '70px';
-divFormContainer.style.backgroundColor = '#fff';
-divFormContainer.style.border = '1px solid #ccc';
-divFormContainer.style.borderRadius = '5px';
-divFormContainer.style.padding = '3px';
-divFormContainer.style.position = 'absolute';
-divFormContainer.style.top = '1';
-divFormContainer.style.left = '1';
-divFormContainer.style.transform = 'translate(3px, 3px)';
-divFormContainer.style.zIndex = 1000;
-
-// Agregar el div de fondo y el div contenedor del formulario al contenedor del mapa
+// Agregar el div de fondo y el formulario al contenedor del mapa
 map.getContainer().appendChild(divBackground);
-divBackground.appendChild(divFormContainer);
-divFormContainer.appendChild(form);
+divBackground.appendChild(form);
+
 divBackground.addEventListener('touchstart', function(event) {
   event.stopPropagation();
 });
 
+// Notificaciones
+var modernNotifications = L.control.notifications({ className: 'modern' }).addTo(map);
 
-
-// bienvenida
-var notification = L.control
-    .notifications({
-        timeout: 3000,
-        position: 'topright',
-        closable: true,
-        dismissable: true,
-    })
-    .addTo(map);
-//custom options per notification
-notification.success('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos la ubicación faltante (latitud, longitud, código) por WhatsApp.', {
+// Bienvenida
+modernNotifications.success('Bienvenido!!! 💙', 'Hola! ¿Quieres colaborar con nuestro proyecto? Simplemente envíanos la ubicación faltante (latitud, longitud, código) por WhatsApp.', {
   timeout: 12000,
   closable: false,
   dismissable: false,
-  icon: 'fa fa-check-circle',
-  className: 'important-alert',
 });
 
-
-var modernNotifications = L.control.notifications({ className: 'modern' }).addTo(map);
-
-/*
-var lat  = -11.0785
-var lng =  -77.3211
-*/
 // Crear un grupo de capas para los marcadores y la línea base
 var markers = L.layerGroup().addTo(map);
+
 // Agregar evento al formulario para agregar marcadores al mapa
 form.addEventListener('submit', function(e) {
   e.preventDefault();
   var lat = parseFloat(inputLat.value);
   var lng = parseFloat(inputLng.value);
+
+  // Verificar si las coordenadas son válidas
+  if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+    modernNotifications.error('Error', 'Por favor, ingrese coordenadas válidas.');
+    return;
+  }
+
   // Crear un marcador en las coordenadas ingresadas por el usuario
   var marker = L.marker([lat, lng]).addTo(markers);
+
   // Calcular el punto más cercano en el archivo geoJSON `erp`
-  var point = {
-    type: 'Feature',
-    properties: {},
-    geometry: {
-      type: 'Point',
-      coordinates: [lng, lat]
-    }
-  };
+  var point = turf.point([lng, lat]);
 
   // Encontrar el punto más cercano en el archivo geoJSON
-  var nearest = turf.nearestPoint([lng, lat], erp);
+  var nearest = turf.nearestPoint(point, turf.featureCollection(erp.features));
 
   // Calcular la distancia más corta entre el marcador y el punto más cercano
-  var distance = turf.distance([lng, lat], nearest.geometry.coordinates);
+  var distance = turf.distance(point, nearest);
 
   // Calcular la altura necesaria para transmitir señal de radio
   var height = 0.000022 * Math.pow(distance, 3) - 0.007834 * Math.pow(distance, 2) + 2.660074 * distance + 8.346236;
@@ -153,81 +135,57 @@ form.addEventListener('submit', function(e) {
 
   // Crear una línea a partir de las coordenadas
   var line = L.polyline(lineCoords, {color: 'red'}).addTo(markers);
-  // centrar
+
+  // Centrar el mapa en la línea
   map.fitBounds(line.getBounds());
 
   // Agregar evento al marcador para mostrar la información de distancia y altura en un popup
-  marker.addEventListener('click', function() {
-    var popupContent = 'Distancia más corta: ' + distance.toFixed(2) + ' Km<br>Tiempo de Lectura minima: ' + Math.floor(height/60) + ' Horas con ' + (height%60).toFixed(0) +' Minutos';
-    
-    L.popup()
-      .setLatLng(marker.getLatLng())
-      .setContent(popupContent)
-      .openOn(map);
-  });
+  marker.bindPopup('Distancia más corta: ' + distance.toFixed(2) + ' Km<br>Tiempo de Lectura mínima: ' + Math.floor(height/60) + ' Horas con ' + (height%60).toFixed(0) +' Minutos').openPopup();
 
-  // Crear un control personalizado de cuadro de diálogo
-  var customControl = L.control({
-    position: 'topleft'
-  });
-  /*
-
-  customControl.onAdd = function (map) {
-    var container = L.DomUtil.create('div', 'custom-control');
-
-    // Agregar contenido al cuadro de diálogo
-    
-    container.innerHTML = '<h2>Optimización</h2><p>Distancia más corta: ' + distance.toFixed(2) + ' Km<br>Tiempo de Lectura minima: ' + Math.floor(height/60) + ' Horas con ' + (height%60).toFixed(0) +' Minutos</p>';
-
-    // Agregar evento para cerrar el cuadro de diálogo
-    container.addEventListener('click', function() {
-      container.style.display = 'none';
-    });
-
-    return container;
-  };
-
-  // Agregar el control personalizado al mapa
-  customControl.addTo(map);
-  */
+  // Mostrar notificación con los resultados
+  modernNotifications.success('Cálculo completado', 'Distancia: ' + distance.toFixed(2) + ' Km<br>Tiempo de lectura: ' + Math.floor(height/60) + 'h ' + (height%60).toFixed(0) + 'm');
 });
-
 
 // Coordenadas
 L.control.mousePosition({
   position:'bottomright',
-  show: false
+  separator: ' | ',
+  emptyString: 'Coordenadas no disponibles',
+  lngFirst: false,
+  numDigits: 5,
+  lngFormatter: function(num) {
+    return L.Util.formatNum(num, 5) + '° E';
+  },
+  latFormatter: function(num) {
+    return L.Util.formatNum(num, 5) + '° N';
+  }
 }).addTo(map);
 
-// Medicion
+// Medición
 L.control.polylineMeasure({
-  position:'topright'
+  position:'topright',
+  unit: 'metres',
+  showBearings: true,
+  clearMeasurementsOnStop: false,
+  showClearControl: true,
+  showUnitControl: true
 }).addTo(map);
 
-// user
+// Controles de dibujo
 map.pm.addControls({
-
   position: 'topright',
-  drawCircle: false,
-  drawRectangle: false,
-  drawCircleMarker: false,
+  drawMarker: true,
+  drawPolyline: true,
+  drawPolygon: true,
+  editMode: true,
+  dragMode: true,
   cutPolygon: false,
-  dragMode: false,
-  editMode:false,
-  oneBlock:true,
-  rotateMode: false
-
+  removalMode: true,
 });
 
-
-
-
-
-
-
-
+// Botón de WhatsApp
 var bar = L.controlCredits({
   image: "img/whatsapp.svg",
   link: "https://wa.me/51946648819?text=Hola%2C+esta+estacion+activa+falta+(latitud, longitud, código)",
-  text: "<strong>Enviame la Estacion para agregar!!!</strong><br/><b></b>",
+  text: "<strong>Envíame la Estación para agregar</strong>",
 }).addTo(map);
